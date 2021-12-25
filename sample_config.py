@@ -1,6 +1,8 @@
 import os
 
-class Config(object):
+
+
+class Config((object)):
     # get a token from https://chatbase.com
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     # get a token from @BotFather
@@ -14,7 +16,7 @@ class Config(object):
     API_HASH = os.environ.get("API_HASH")
     # Get these values from my.telegram.org
     # Array to store users who are authorized to use the bot
-    AUTH_USERS = set(str(x) for x in os.environ.get("AUTH_USERS", "").split())
+    AUTH_USERS = {str(x) for x in os.environ.get("AUTH_USERS", "").split()}
     # reg: Procedures
     UTUBE_BOT_USERS = AUTH_USERS
     SUPER_DLBOT_USERS = AUTH_USERS

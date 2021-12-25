@@ -102,7 +102,7 @@ def echo(bot, update):
         action="typing"
     )
     text = update.text
-    if(text.startswith("http")):
+    if (text.startswith("http")):
         url = text
         if "|" in url:
             if str(update.from_user.id) not in Config.SUPER_DLBOT_USERS:
@@ -213,7 +213,7 @@ def echo(bot, update):
                             approx_file_size = humanbytes(formats["filesize"])
                         cb_string = "{}|{}|{}".format(
                             "video", format_id, format_ext)
-                        if not "audio only" in format_string:
+                        if "audio only" not in format_string:
                             ikeyboard = [
                                 pyrogram.InlineKeyboardButton(
                                     "[" + format_string +
@@ -291,10 +291,8 @@ def echo(bot, update):
             # ref: message from @BotSupport
             width = 0
             height = 0
-            duration = 0
             metadata = extractMetadata(createParser(mp4_file))
-            if metadata.has("duration"):
-                duration = metadata.get('duration').seconds
+            duration = metadata.get('duration').seconds if metadata.has("duration") else 0
             # get the correct width, height, and duration for videos greater than 10MB
             if os.path.exists(thumb_image_path):
                 metadata = extractMetadata(createParser(thumb_image_path))
@@ -516,19 +514,11 @@ def button(bot, update):
                 except:
                     pass
         else:
-            # get the correct width, height, and duration for videos greater than 10MB
-            # ref: message from @BotSupport
-            width = 0
-            height = 0
-            duration = 0
             metadata = extractMetadata(createParser(download_directory))
-            if metadata.has("duration"):
-                duration = metadata.get('duration').seconds
+            duration = metadata.get('duration').seconds if metadata.has("duration") else 0
             metadata = extractMetadata(createParser(thumb_image_path))
-            if metadata.has("width"):
-                width = metadata.get("width")
-            if metadata.has("height"):
-                height = metadata.get("height")
+            width = metadata.get("width") if metadata.has("width") else 0
+            height = metadata.get("height") if metadata.has("height") else 0
             # get the correct width, height, and duration for videos greater than 10MB
             if os.path.exists(thumb_image_path):
                 # resize image
